@@ -3,7 +3,7 @@ export default {
     template:`
         <section class="app-main">
            hello
-           <app-header/>
+         
         </section>
     `,
       methods: {
