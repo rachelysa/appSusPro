@@ -1,0 +1,62 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+
+/* EMAIL-APP */
+.email-app {
+    display: flex;
+    padding: 10px;
+}
+
+.email-app nav {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 15%;
+    /* width: 250px; */
+}
+
+.email-app nav li {
+    list-style-type: none;
+    margin-bottom: 0.8rem;
+    cursor: pointer;
+}
+
+.email-app nav .compose-btn {
+    background-color: white;
+    border-radius: 30px;
+    padding: 3px 12px;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.email-app .main-content {
+    flex: 1;
+}
+
+/* EMAIL-LIST */
+.email-list {
+    margin: 0;
+    padding-left: 0;
+    list-style-type: none;
+}
+
+
+/* EMAIL-PREVIEW */
+.email-preview {
+    border-bottom: 1px solid gray;
+}
+
+.email-preview .email-subjet {
+    font-weight: 700;
+}
+
+/* EMAIL-DETAILS */
+
+/* EMAIL-STATUS */
+
+/* EMAIL-COMPOSE */
