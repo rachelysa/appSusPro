@@ -2,7 +2,7 @@ export const emailsData = [
     {
         id: 'h3Dp2',
         subject: 'Wassap?',
-        body: 'Pick up!',
+        body: 'Pick up!\nThis shows handling multiple lines in an email\nHere is another line. :)',
         isRead: false,
         isStarred: false,
         sentAt : 1551133930594
@@ -25,7 +25,7 @@ export const emailsData = [
     },
     {
         id: 'nq8H2',
-        subject: 'Spring 3 - best project',
+        subject: 'Sprint 3 - best project',
         body: 'This is the most amazing project',
         isRead: false,
         isStarred: true,

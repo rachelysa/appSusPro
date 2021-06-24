@@ -7,10 +7,11 @@ export const emailService = {
     query,
     getEmailById,
     addEmail,
-    deleteEmail
+    deleteEmail,
+    updateEmail
 }
 
-function query() { //TODO fix
+function query() {
     return storageService.query(EMAILS_KEY)
     .then(emails => {
         if (!emails || !emails.length) {
@@ -34,4 +35,8 @@ function addEmail(email){
 
 function deleteEmail(emailId){
     return storageService.remove(EMAILS_KEY, emailId)
+}
+
+function updateEmail(email){
+    return storageService.put(EMAILS_KEY, email)
 }

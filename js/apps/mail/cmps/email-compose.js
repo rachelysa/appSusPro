@@ -1,5 +1,6 @@
+import { emailService } from '../services/email-service.js';
+
 export default {
-    // props: ['email'],
     template: `
     <section class="email-compose">
         <div class="email-header">
@@ -8,7 +9,6 @@ export default {
         <div class="email-content">
             <form @submit.prevent="sendEmail">
                 <div class="subject-container">
-                    <!-- Subject: -->
                     <label for="subject"></label>
                     <input type="text" id="subject" v-model="email.subject" autocomplete="off" placeholder="Subject" />
                 </div>
@@ -18,9 +18,7 @@ export default {
                 </div>
                 <div class="email-footer">
                     <button class="send-btn">Send</button>
-                    <!-- <button type="button" class="delete-btn" @click="remove">Delete</button> -->
                     <i class="far fa-trash-alt delete-btn" @click="remove"></i>
-                    <!-- <router-link to='/mail' class="delete-btn" >Delete</router-link> -->
                 </div>
             </form>
         </div>
@@ -33,16 +31,16 @@ export default {
             }
         }
     },
-    created(){
+    created() {
         console.log(this.$route)
     },
     methods: {
-        sendEmail() {
-            console.log('clicked')
-            this.$emit('sendEmail', this.email)
+        sendEmail(email) {
+            emailService.addEmail(this.email)
+                .then(res => this.$router.push('/mail/inbox/'))
         },
-        remove(){
-            this.$emit('deleteNewEmail', this.email)
+        remove() {
+            this.$router.push('/mail/inbox/')
         }
-    }
+    },
 }

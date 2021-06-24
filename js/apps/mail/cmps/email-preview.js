@@ -45,9 +45,11 @@ export default {
         },
         toggleRead(){
             this.email.isRead = !this.email.isRead;
+            this.$emit("toggleRead", this.email)
         },
         toggleStar(){
             this.email.isStarred = !this.email.isStarred;
+            this.$emit("toggleRead", this.email.id)
         }
     }
 }
