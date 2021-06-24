@@ -5,6 +5,7 @@ const EMAILS_KEY = 'AS-emails';
 
 export const emailService = {
     query,
+    getEmailById,
     addEmail,
     deleteEmail
 }
@@ -17,6 +18,10 @@ function query() { //TODO fix
         }
         return emails
     })
+}
+
+function getEmailById(emailId){
+    return storageService.get(EMAILS_KEY, emailId)
 }
 
 function addEmail(email){
