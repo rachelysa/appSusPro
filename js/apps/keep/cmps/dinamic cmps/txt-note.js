@@ -1,0 +1,24 @@
+
+
+export default {
+    props: ['note','edit'],
+    template: `
+    <div class="note-preview-txt" v-if="currNote">
+        <h3 v-if="!edit">{{currNote.info.title}}</h3>
+        <input class="edit-txt"type="text" v-else v-model="currNote.info.title" >
+        <p v-if="!edit">{{currNote.info.txt}}</p>
+        <input class="edit-txt"type="text" v-else v-model="currNote.info.txt" >
+        <button v-if="edit" class="btn-note-type"  title="save note" @click.stop.prevent="updateTxt()"><i class="far fa-save"></i></button>
+    </div>
+    `,
+    data(){
+        return{
+        currNote:this.note,
+    }
+    },
+    methods:{
+        updateTxt(){
+            this.$emit('update',this.currNote)
+        }
+    }
+};

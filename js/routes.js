@@ -1,7 +1,7 @@
 import app from './pages/app.js'
 import appMail from './apps/mail/pages/mail-app.js'
-import appkeep from './apps/keep/pages/keep-app.js'
-import keepDetails from './apps/keep/pages/keep-details.js'
+import appNotes from './apps/keep/pages/notes-app.js'
+
 const routes = [
     {
         path: '/',
@@ -12,18 +12,15 @@ const routes = [
         component: appMail,
     },
     {
-        path: '/keep',
-        component: appkeep,
+        path: '/note',
+        component: appNotes,
         children:[
          
         ]
       
     },
 
-    {
-        path: '/keep/:noteId',
-        component: keepDetails,
-    },
+
 
    
 ];

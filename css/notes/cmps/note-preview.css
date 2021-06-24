@@ -1,0 +1,96 @@
+@import './dinamic-cmps/todos-note.css';
+.note-preview{
+    width: 300px;
+    padding: 20px;
+    border-radius: 5px;
+
+    box-shadow: 0 0 5px rgb(165, 165, 165);
+  
+}
+.dinamic-preview{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.dinamic-preview h3{
+    margin-top: 10px;
+}
+.img-note .note-video{
+    height:150px;
+    width: 50px;
+    border-radius: 5px;
+}
+.note-preview-todos ul{
+    padding: 0;
+}
+.todo{
+    list-style: none;
+    display: flex;
+     justify-content: space-between;
+   align-items: center;
+    gap:5px
+}
+.todo input[type=checkbox]:checked {
+    background-color: transparent;
+    color:rgb(124, 124, 124);
+}
+
+
+.edit-items{
+    display: flex;
+    justify-content: center;
+  align-items: center;
+  gap:5px
+}
+.edit-txt{
+    background-color: transparent;
+    height: 35px;
+border-radius: 5px;
+padding: 5px;
+    width: 100%;
+    border:none;
+    font-size: 1.1rem;
+    padding-inline-start: 10px;
+    /* border-bottom: 1px solid rgb(124, 124, 124) ; */
+   
+}
+
+.edit-txt:focus{
+    outline-color: #5f5f5f;
+
+}
+
+.color-palete{
+    position: absolute;
+    right: 0px;
+    top: 4px;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.note-container{
+    display: flex;
+    justify-content:flex-start;
+    position: relative;
+    gap:20px
+
+}
+.action-note-container{
+    display: flex;
+    flex: 1;
+    justify-content:space-between;
+    position: relative;
+
+}
+
+.pinned{
+    color: rgb(100, 0, 62);
+}
+.audio-note{
+    width: 250px;
+}
+.type-icon-preview{
+    color: rgb(105, 105, 105);
+}

@@ -4,7 +4,7 @@ export default {
         <nav>
             <router-link to="/" active-class="active-link nav" exact>Home</router-link> |
             <router-link to="/mail" class="nav">mail</router-link> |
-            <router-link to="/keep" class="nav">keep</router-link> |
+            <router-link to="/note" class="nav">notes</router-link> |
             
         </nav>
     </header>
