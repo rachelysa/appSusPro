@@ -17,6 +17,7 @@ export default {
             this.$emit('deleteEmail', emailId)
         },
         read(email){
+            email.isRead = true;
             this.$emit('read', email)
         }
     }

@@ -1,10 +1,11 @@
 import { storageService } from "../../../services/async-storage-service.js"
-import { emailsData } from './email-data.js'; //add id to emails
+import { emailsData } from './email-data.js'; 
 
 const EMAILS_KEY = 'AS-emails';
 
 export const emailService = {
     query,
+    getEmailById,
     addEmail,
     deleteEmail
 }
@@ -13,10 +14,15 @@ function query() { //TODO fix
     return storageService.query(EMAILS_KEY)
     .then(emails => {
         if (!emails || !emails.length) {
-            return localStorage.setItem(EMAILS_KEY, JSON.stringify(emailsData))
+            localStorage.setItem(EMAILS_KEY, JSON.stringify(emailsData))
+            return emailsData
         }
         return emails
     })
+}
+
+function getEmailById(emailId){
+    return storageService.get(EMAILS_KEY, emailId)
 }
 
 function addEmail(email){
