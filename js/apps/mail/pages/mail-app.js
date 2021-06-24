@@ -24,9 +24,6 @@ export default {
           <router-view></router-view>
       </div>
   </section>`,
-  created() {
-    this.$router.push('/mail/inbox')
-  },
   components: {
     emailStatus,
   }
