@@ -1,4 +1,5 @@
 import { emailService } from '../services/email-service.js';
+import { showMsg } from '../../../services/event-bus-service.js';
 
 export default {
     template: `
@@ -31,13 +32,19 @@ export default {
             }
         }
     },
-    created() {
-        console.log(this.$route)
-    },
+    // created() {
+    //     console.log(this.$route)
+    // },
     methods: {
         sendEmail(email) {
             emailService.addEmail(this.email)
-                .then(res => this.$router.push('/mail/inbox/'))
+                .then(res => {
+                    showMsg({txt: 'Message Sent', type: 'success'})
+                    this.$router.push('/mail/inbox/')
+                })
+                .catch(() => {
+                    showMsg({ txt: 'Error, please try again', type: 'error' })
+                })
         },
         remove() {
             this.$router.push('/mail/inbox/')

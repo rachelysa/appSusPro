@@ -13,6 +13,9 @@ export default {
                     <i class="far fa-star" v-else></i>
                     <i class="fas fa-reply"></i>
                     <i class="far fa-trash-alt" @click="remove"></i>
+                    <router-link :to="{ path: '/note', query: { title: email.subject, txt: email.body }}">
+                        <i class="far fa-sticky-note" title="Save as Note"></i>
+                    </router-link>
                 </div>
                 <div class="body">
                     {{this.email.body}}
@@ -35,11 +38,9 @@ export default {
             immediate: true,
             handler() {
                 const { emailId } = this.$route.params;
-                console.log(emailId)
                 emailService.getEmailById(emailId)
                 .then(email => {
                     this.email = email
-                    console.log(this.email)
                 })
             }
         }

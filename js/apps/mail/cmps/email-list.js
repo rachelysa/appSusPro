@@ -1,6 +1,7 @@
 import { emailService } from '../services/email-service.js';
 import emailPreview from './email-preview.js';
 import emailFilter from '../cmps/email-filter.js';
+import { showMsg } from '../../../services/event-bus-service.js';
 
 export default {
     template: `
@@ -39,13 +40,11 @@ export default {
     // },
     methods: {
         getAllEmails() {
-            //add first filter for inbox
             emailService.query()
                 .then(emails => {
                     this.emails = emails
                     this.emails.sort((a, b) => b.sentAt - a.sentAt)
                 })
-            // this.filterBy = { text: '', isRead: 'all' }
         },
         getStarredEmails() {
             emailService.query()
@@ -58,7 +57,11 @@ export default {
             console.log(emailId)
             emailService.deleteEmail(emailId)
                 .then(res => {
+                    showMsg({txt: 'Message Deleted', type: 'success'})
                     this.getAllEmails()
+                })
+                .catch(() => {
+                    showMsg({ txt: 'Error, please try again', type: 'error' })
                 })
         },
         toggleRead(email) {
@@ -71,8 +74,10 @@ export default {
             email.isRead = true;
             this.selectedEmail = email;
             console.log(this.$route)
+            const path = this.$route.path
+            const formattedPath =  path.charAt(path.length-1) === '/' ? path : path + '/';
             emailService.updateEmail(email)
-                .then(email => this.$router.push(this.$route.path + '/' + email.id))
+                .then(email => this.$router.push(formattedPath + email.id))
             // this.$emit('read', email) //update unread emails
             //TODO Move to details
         },
