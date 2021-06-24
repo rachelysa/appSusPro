@@ -3,13 +3,15 @@ import { notesService } from "../services/notes-service.js";
 export default {
   template: `
         <section class="add-note"> 
-        <input class="edit-txt" type="text"  v-model="txt" :placeholder="title" />
+          <div class="add-note-input">
+        <input class="edit-txt" type="text"  v-model="txt" :placeholder="title" /></div>
+        <div note-type-btns>
       <button class="btn-note-type" title="text type" @click="setType('txtNote','enter note')"><i class="fas fa-font"></i></button>
       <button class="btn-note-type" title="img type" @click="setType('imgNote','enter img url')"><i class="far fa-image"></i></button>
       <button class="btn-note-type" title="video type" @click="setType('videoNote','enter video url')"><i class="fab fa-youtube"></i></button>
       <button class="btn-note-type" title="todos type" @click="setType('todosNote','enter todos with , between them')"><i class="fas fa-list-ul"></i></button>
       <button class="btn-note-type" title="audio type" @click="setType('audioNote','enter audio url')"><i class="fas fa-music"></i></i></button>
-        <button class="btn-note-type"  title="save note" @click="saveNote()"><i class="far fa-save"></i></button>
+        <button class="btn-note-type"  title="save note" @click="saveNote()"><i class="far fa-save"></i></button></div>
         </section>
     `,
   data() {

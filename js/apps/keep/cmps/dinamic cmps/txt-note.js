@@ -8,8 +8,7 @@ export default {
         <input class="edit-txt"type="text" v-else v-model="currNote.info.title" >
         <p v-if="!edit">{{currNote.info.txt}}</p>
         <input class="edit-txt"type="text" v-else v-model="currNote.info.txt" >
-        <button v-if="edit" class="btn-note-type"  title="save note" @click.stop.prevent="updateTxt()"><i class="far fa-save"></i></button>
-    </div>
+        <button v-if="edit" class="btn-update"  title="save note" @click.stop.prevent="updateTxt()">save</button>    </div>
     `,
     data(){
         return{

@@ -4,11 +4,11 @@ import notePreview from './note-preview.js';
 export default {
     props: ['notes'],
     template: `
-    <div class="notes-list">
-        <div  v-for="note in notes"  >
-
+    <div class="note-gallery">
+        <div  class="note-list"  >
+<div class="ddd" v-for="note in notes" >
             <note-preview  :currNote="note"   @deleteNote="deletenote"  :style="note.style" @change="change" />
-
+</div>
         </div>
     </div>
     `,

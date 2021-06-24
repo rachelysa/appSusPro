@@ -14,7 +14,7 @@ export const notesService = {
 }
 
 
-var gKeeps = [{
+var gNotes = [{
     id:storageService._makeId(),
     type: "txtNote",
     isPinned: true,
@@ -66,27 +66,33 @@ var gKeeps = [{
     }
 }]
 
-const KEEP_KEY='keeps'
+const NOTES_KEY='keeps'
 
 function query() {
 //  localStorage.setItem(KEEP_KEY,JSON.stringify(gKeeps))
-    return storageService.query(KEEP_KEY);
-    
+    return storageService.query(NOTES_KEY)
+    .then(notes => {
+        if (!notes || !notes.length) {
+            localStorage.setItem(NOTES_KEY, JSON.stringify(gNotes))
+            return gNotes
+        }
+        return notes
+    })
      
 }
 function getKeepById(id) {
-    return storageService.get(KEEP_KEY, id);
+    return storageService.get(NOTES_KEY, id);
 }
 function saveTodos(todos){
-    return storageService.put(KEEP_KEY,todos);
+    return storageService.put(NOTES_KEY,todos);
 }
 function save(note){
     note.id=storageService._makeId();
-    return storageService.post(KEEP_KEY,note);
+    return storageService.post(NOTES_KEY,note);
 }
 function update(keep){
-    return storageService.put(KEEP_KEY,keep);
+    return storageService.put(NOTES_KEY,keep);
 }
 function removeNote(noteId){
-    return storageService.remove(KEEP_KEY,noteId);
+    return storageService.remove(NOTES_KEY,noteId);
 }

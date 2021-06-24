@@ -4,10 +4,9 @@ export default {
     <div class="note-preview-txt">
             <h3 v-if="!edit">{{note.info.title}}</h3>
         <input class="edit-txt"type="text" v-else v-model="note.info.title" >
-        <img class="note-img" width="250px"   :src="note.info.txt"/>
+        <img class="note-img" width="100%"   :src="note.info.txt"/>
         <input  v-if="edit" class="edit-txt"type="text" v-model="newUrl" placeholder="add img url" >
-        <button v-if="edit" class="btn-note-type"  title="save note" @click.stop.prevent="updateTxt()"><i class="far fa-save"></i></button>
-  
+        <button v-if="edit" class="btn-update"  title="save note" @click.stop.prevent="updateTxt()">save</button>
     </div>
     `,
     data(){

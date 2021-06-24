@@ -8,8 +8,7 @@ export default {
         <source :src="note.info.txt" type="audio/ogg">
         </audio>
         <input  v-if="edit" class="edit-txt"type="text" v-model="newUrl" placeholder="add audio url" >
-        <button v-if="edit" class="btn-note-type"  title="save note" @click.stop.prevent="updateTxt()"><i class="far fa-save"></i></button>
-  
+        <button v-if="edit" class="btn-update"  title="save note" @click.stop.prevent="updateTxt()">save</button>
     </div>
     `,
     data(){
