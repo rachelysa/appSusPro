@@ -7,4 +7,10 @@
 .note-app{
     background-color: rgb(240, 240, 240);
     padding-bottom: 30px;
+    top: 50px;
+    position: relative
+}
+.preview-type-p{
+
+    padding-inline-start: 30px;
 }

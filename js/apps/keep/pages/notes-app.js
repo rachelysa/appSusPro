@@ -7,9 +7,11 @@ export default {
     template: `
         <section class="note-app">
            <add-note @saveNote="loadnotes"/>
+           
            <note-filter @filtered="filternotes" />
+          <p class="preview-type-p">pinned</p>
            <note-list :notes="pinned" @selected="selectnote" @deleteNote="deleteNote" @change="editNote"/>
-        
+         <p class="preview-type-p">others</p>
           <note-list :notes="notPinned" @selected="selectnote" @deleteNote="deleteNote" @change="editNote"/>
         </section>
     `,

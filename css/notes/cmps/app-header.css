@@ -1,0 +1,26 @@
+.app-header{
+    background-color: #2e2e2e;
+    height: 100px;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    z-index: 999;
+}
+.app-header nav{
+    font-size: 1.5rem;
+    color: whitesmoke;
+    position: absolute;
+    right: 49px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+}
+.app-header nav a{
+    color: white;
+    text-decoration: none;
+}
+.nav{
+    color: #1c4fa1;
+}
