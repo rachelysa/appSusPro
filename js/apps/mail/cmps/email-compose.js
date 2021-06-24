@@ -50,4 +50,15 @@ export default {
             this.$router.push('/mail/inbox/')
         }
     },
+    watch: {
+        '$route': {
+            immediate: true,
+            handler() {
+                const params = this.$route.query;
+                this.email.subject = params.subject;
+                this.email.body = params.body;
+                // this.sendEmail();
+            }
+        }
+    },
 }
