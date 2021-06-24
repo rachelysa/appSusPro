@@ -37,6 +37,13 @@ export default {
                 })
             // this.filterBy = { text: '', isRead: 'all' }
         },
+        getStarredEmails() {
+            emailService.query()
+                .then(emails => {
+                    this.emails = emails.filter(email => email.isStarred)
+                    this.emails.sort((a, b) => b.sentAt - a.sentAt)
+                })
+        },
         deleteEmail(emailId) {
             console.log(emailId)
             emailService.deleteEmail(emailId)
@@ -53,9 +60,10 @@ export default {
             console.log(email)
             email.isRead = true;
             this.selectedEmail = email;
+            console.log(this.$route)
             emailService.updateEmail(email)
-            .then(email => this.$router.push('/mail/inbox/'+email.id))
-            // this.$emit('read', email) //uupdate unread emails
+            .then(email => this.$router.push(this.$route.path + '/' + email.id))
+            // this.$emit('read', email) //update unread emails
             //TODO Move to details
         },
         setFilter(filterBy) {
@@ -67,7 +75,7 @@ export default {
                 if (!email.isRead) sum++
             })
             return sum
-        }
+        },
     },
     watch: {
         '$route': {
@@ -76,7 +84,10 @@ export default {
                 //update filter and getEmails 
                 const path = this.$route.path.substring(6)
                 if (path.startsWith('inbox')) this.getAllEmails();
-                else if (path.startsWith('starred')) console.log('starred')
+                else if (path.startsWith('starred')) {
+                    console.log('starred')
+                    this.getStarredEmails()
+                }
             }
         }
     },

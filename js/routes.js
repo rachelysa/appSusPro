@@ -30,6 +30,10 @@ const routes = [
                 path: '/mail/starred',
                 component: emailList
             },
+            {
+                path: '/mail/starred/:emailId',
+                component: emailDetails
+            }
         ]
     },
     {
