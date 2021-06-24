@@ -1,0 +1,23 @@
+/* EMAIL-DETAILS */
+.email-details .subject {
+    font-weight: 700;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.email-details .body {
+    white-space: pre-line;
+}
+
+.email-details .actions {
+    margin-bottom: 20px;
+}
+
+.email-details .actions i {
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.email-details .actions i:hover {
+    color:gray; 
+}
