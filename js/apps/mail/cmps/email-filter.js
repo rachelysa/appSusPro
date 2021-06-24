@@ -1,7 +1,6 @@
 export default {
     template: `
     <section class="email-filter">
-        **Filter doesn't work**
         <input v-model="filterBy.text" type="search" placeholder="Search mail" @input="filter" />  
         <select v-model="filterBy.isRead" name="read" @change="filter">
             <option value="all">All</option>
@@ -21,7 +20,7 @@ export default {
     methods: {
         filter() {
             console.log(this.filterBy);
-            this.$emit('filtered', this.filterBy);
+            this.$emit('filtered', {...this.filterBy});
         }
     }
 };

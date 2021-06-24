@@ -6,8 +6,8 @@ export default {
     template: `
     <div class="container">
         <email-filter class="email-filter" @filtered="setFilter" />
-        <ul class="email-list">
-            <li v-for="email in emails" :key="email.id">
+        <ul class="email-list" v-if="emailsToShow">
+            <li v-for="email in emailsToShow" :key="email.id">
                 <email-preview :email="email" @deleteEmail="deleteEmail(email.id)" @click.native="read(email)" @toggleRead="toggleRead(email)"></email-preview>
             </li>
         </ul>
@@ -21,7 +21,17 @@ export default {
     },
     computed: {
         emailsToShow() {
-            return this.emails;
+            if (!this.filterBy) return this.emails;
+            const searchStr = this.filterBy.text.toLowerCase();
+            const emailsToShow = this.emails.filter(email => {
+              if (this.filterBy.isRead)
+                return (email.subject.toLowerCase().includes(searchStr) ||
+                  email.body.toLowerCase().includes(searchStr)) && (
+                    this.filterBy.isRead === 'all' ||
+                    (this.filterBy.isRead === 'read' && email.isRead) ||
+                    (this.filterBy.isRead === 'unread' && !email.isRead))
+            });
+            return emailsToShow;
         }
     },
     // created() {
@@ -51,7 +61,7 @@ export default {
                     this.getAllEmails()
                 })
         },
-        toggleRead(email){
+        toggleRead(email) {
             console.log(email)
             emailService.updateEmail(email);
 
@@ -62,14 +72,14 @@ export default {
             this.selectedEmail = email;
             console.log(this.$route)
             emailService.updateEmail(email)
-            .then(email => this.$router.push(this.$route.path + '/' + email.id))
+                .then(email => this.$router.push(this.$route.path + '/' + email.id))
             // this.$emit('read', email) //update unread emails
             //TODO Move to details
         },
         setFilter(filterBy) {
             this.filterBy = filterBy;
         },
-        getUnreadAmount(){
+        getUnreadAmount() {
             let sum = 0;
             this.emails.forEach(email => {
                 if (!email.isRead) sum++
@@ -84,10 +94,7 @@ export default {
                 //update filter and getEmails 
                 const path = this.$route.path.substring(6)
                 if (path.startsWith('inbox')) this.getAllEmails();
-                else if (path.startsWith('starred')) {
-                    console.log('starred')
-                    this.getStarredEmails()
-                }
+                else if (path.startsWith('starred')) this.getStarredEmails()
             }
         }
     },
