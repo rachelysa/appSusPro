@@ -44,12 +44,12 @@ export default {
             var filterednotes= this.notes.filter(note=>{
                 if(note.type==='todosNote'){
                     if(note.info.title.toLowerCase().includes(txt)) return note.info.title.toLowerCase().includes(txt);
-                    return note.info.txt.filter(todo=>{
+                   else return note.info.txt.filter(todo=>{
                         return todo.todo.toLowerCase().includes(txt);
                     })
                     
                 }
-                return note.info.title.toLowerCase().includes(txt) ||note.info.txt.toLowerCase().includes(txt)
+                else return note.info.title.toLowerCase().includes(txt) ||note.info.txt.toLowerCase().includes(txt)
             });
             this.filterednotes=filterednotes
         },
