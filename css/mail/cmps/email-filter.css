@@ -1,0 +1,12 @@
+/* EMAIL-FILTER */
+.email-filter {
+    text-align: center;
+    margin: 20px auto;
+}
+
+.email-filter i {
+    font-size: 1.3rem;
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 5px;
+}

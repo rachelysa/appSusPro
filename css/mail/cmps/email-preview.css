@@ -12,7 +12,6 @@
 
 .email-preview .email-subjet {
     padding-left: 10px;
-    /* font-weight: 700; */
 }
 
 .email-preview {
@@ -20,7 +19,6 @@
 }
 
 .email-preview.read {
-    /* padding-left: 10px; */
     background-color: #f3f3f3;
     font-weight: 400;
 }

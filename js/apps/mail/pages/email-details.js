@@ -1,10 +1,9 @@
 import { emailService } from "../services/email-service.js";
 
 export default {
-    props: ['email'],
     template: `
     <section>
-        <div class="email-details">
+        <div v-if="email" class="email-details">
                 <div class="subject">
                     {{this.email.subject}}
                 </div>
@@ -14,6 +13,9 @@ export default {
                     <i class="far fa-star" v-else></i>
                     <i class="fas fa-reply"></i>
                     <i class="far fa-trash-alt" @click="remove"></i>
+                    <router-link :to="{ path: '/note', query: { title: email.subject, txt: email.body }}">
+                        <i class="far fa-sticky-note" title="Save as Note"></i>
+                    </router-link>
                 </div>
                 <div class="body">
                     {{this.email.body}}
@@ -23,6 +25,7 @@ export default {
     </section>`,
     data() {
         return {
+            email: null
         }
     },
     computed: {
@@ -30,21 +33,19 @@ export default {
             return  new Date(this.email.sentAt).toLocaleString();
         }
     },
-    // watch: {
-    //     '$route.params.emailId': {
-    //         immediate: true,
-    //         handler() {
-    //             const { emailId } = this.$route.params;
-    //             emailService.getEmailById(emailId)
-    //             .then(email => this.email = email)
-    //         }
-    //     }
-    // },
+    watch: {
+        '$route.params.emailId': {
+            immediate: true,
+            handler() {
+                const { emailId } = this.$route.params;
+                emailService.getEmailById(emailId)
+                .then(email => {
+                    this.email = email
+                })
+            }
+        }
+    },
     methods: {
-        // sendEmail() {
-        //     console.log('clicked')
-        //     this.$emit('sendEmail', this.email)
-        // },
         remove(){
             this.$emit('deleteEmail', this.email.id)
         }

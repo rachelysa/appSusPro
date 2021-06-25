@@ -1,24 +1,148 @@
+import { emailService } from '../services/email-service.js';
 import emailPreview from './email-preview.js';
+import emailFilter from '../cmps/email-filter.js';
+import { showMsg } from '../../../services/event-bus-service.js';
 
 export default {
-    props: ['emails'],
     template: `
-    <ul class="email-list">
-        <li v-for="email in emails"> <!--add id to emails -->
-            <email-preview :email="email" @deleteEmail="deleteEmail" @click.native="read(email)"></email-preview>
-        </li>
-    </ul>
+    <div class="list-container">
+        <email-filter class="email-filter" @filtered="setFilter" @sorted="setSort" />
+        <ul class="email-list" v-if="emailsToShow">
+            <li v-for="email in emailsToShow" :key="email.id">
+                <email-preview :email="email" @deleteEmail="deleteEmail(email.id)" @click.native="read(email)" @toggleRead="toggleRead(email)"></email-preview>
+            </li>
+        </ul>
+        <p class="no-results" v-else>No emails found</p>
+    </div>
     `,
-    components: {
-        emailPreview
-    },
-    methods: {
-        deleteEmail(emailId){
-            this.$emit('deleteEmail', emailId)
-        },
-        read(email){
-            email.isRead = true;
-            this.$emit('read', email)
+    data() {
+        return {
+            emails: null,
+            filterBy: null,
+            sortBy: { key: 'date', isAsc: false },
+            unreadEmails: null,
+            readEmails: null
         }
+    },
+    computed: {
+        emailsToShow() {
+            if (!this.filterBy) return this.emails;
+            const searchStr = this.filterBy.text.toLowerCase();
+            const emailsToShow = this.emails.filter(email => {
+                if (this.filterBy.isRead)
+                    return (email.subject.toLowerCase().includes(searchStr) ||
+                        email.body.toLowerCase().includes(searchStr)) && (
+                            this.filterBy.isRead === 'all' ||
+                            (this.filterBy.isRead === 'read' && email.isRead) ||
+                            (this.filterBy.isRead === 'unread' && !email.isRead))
+            });
+            return (emailsToShow.length === 0) ? null : emailsToShow;
+        }
+    },
+    // created() {
+    //     this.getAllEmails();
+    // },
+    methods: {
+        getAllEmails() {
+            emailService.query()
+                .then(emails => {
+                    this.emails = emails
+                    this.emails.sort((a, b) => b.sentAt - a.sentAt)
+                    // this.updateAmount();
+                })
+        },
+        getStarredEmails() {
+            emailService.query()
+                .then(emails => {
+                    this.emails = emails.filter(email => email.isStarred)
+                    this.emails.sort((a, b) => b.sentAt - a.sentAt)
+                    // this.updateAmount();
+                })
+        },
+        deleteEmail(emailId) {
+            console.log(emailId)
+            emailService.deleteEmail(emailId)
+                .then(res => {
+                    showMsg({ txt: 'Message Deleted', type: 'success' })
+                    this.getAllEmails()
+                })
+                .catch(() => {
+                    showMsg({ txt: 'Error, please try again', type: 'error' })
+                })
+        },
+        toggleRead(email) {
+            console.log(email)
+            emailService.updateEmail(email);
+
+        },
+        read(email) {
+            console.log(email)
+            email.isRead = true;
+            this.selectedEmail = email;
+            console.log(this.$route)
+            const path = this.$route.path
+            const formattedPath = path.charAt(path.length - 1) === '/' ? path : path + '/';
+            emailService.updateEmail(email)
+                .then(email => this.$router.push(formattedPath + email.id))
+            // this.$emit('read', email) //update unread emails
+            //TODO Move to details
+        },
+        setFilter(filterBy) {
+            this.filterBy = filterBy;
+        },
+        setSort(sortBy) {
+            this.sortBy = sortBy;
+            if (this.sortBy.key === 'date') this.sortByDate(this.sortBy.isAsc)
+            else this.sortBySubject(this.sortBy.isAsc)
+        },
+        updateAmount() {
+            let readAmount = 0;
+            let unreadAmount = 0;
+            this.emails.forEach(email =>{
+                if (email.read) readAmount++
+                else unreadAmount++
+            })
+            this.unreadEmails = unreadAmount;
+            this.readEmails = readAmount;
+            const total = this.emails.length;
+            console.log(this.readEmails/total)
+            this.$emit('status', {read: this.readEmails, total})
+        },
+        sortBySubject(isAsc) {
+            this.emails.sort((a, b) => {
+                var emailA = a.subject.toUpperCase();
+                var emailB = b.subject.toUpperCase();
+                if (emailA < emailB) return -1;
+                if (emailA > emailB) return 1;
+                return 0;
+            })
+            if (!isAsc) this.emails.reverse();
+        },
+        sortByDate(isAsc) {
+            this.emails.sort((a, b) => {
+                var emailA = a.sentAt;
+                var emailB = b.sentAt;
+                console.log(emailA, emailB)
+                return emailA - emailB
+            })
+            if (!isAsc) this.emails.reverse();
+        },
+
+    },
+    watch: {
+        '$route': {
+            immediate: true,
+            handler() {
+                //update filter and getEmails 
+                const path = this.$route.path.substring(6)
+                if (path.startsWith('inbox')) this.getAllEmails();
+                else if (path.startsWith('starred')) this.getStarredEmails();
+                
+            }
+        }
+    },
+    components: {
+        emailPreview,
+        emailFilter
     }
 }
