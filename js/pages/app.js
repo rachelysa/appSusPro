@@ -18,7 +18,7 @@ export default {
                  <p>jbuodac kbuiubbpisckbou;</p>
                   <button>go to notes</button>
                 </div>
-           <div>
+</div>
          </div>
          
         </section>
