@@ -1,7 +1,7 @@
 import appHeader from "../cmps/app-header.js"
 export default {
     template:`
-        <section class="app-main">
+        <section class="home-main">
            <img class="home-responsive" src="../../img/responsive.png"/>
            <div class="go-to">
            <div class="try-home"> 
