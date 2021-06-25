@@ -10,12 +10,12 @@ export default {
         <div class="email-content">
             <form @submit.prevent="sendEmail">
                 <div class="subject-container">
-                    <label for="subject"></label>
+                    <!-- <label for="subject"></label> -->
                     <input type="text" id="subject" v-model="email.subject" autocomplete="off" placeholder="Subject" />
                 </div>
                 <div class="body-container">
-                    <label for="body"></label>
-                    <textarea name="" id="body" cols="100" rows="20" v-model="email.body" placeholder="Enter message here..."></textarea>
+                    <!-- <label for="body"></label> -->
+                    <textarea name="" id="body" rows="15" v-model="email.body" placeholder="Enter message here..."></textarea>
                 </div>
                 <div class="email-footer">
                     <button class="send-btn">Send</button>
@@ -37,6 +37,9 @@ export default {
     // },
     methods: {
         sendEmail(email) {
+            if (!this.email.subject || !this.email.body) {
+                return showMsg({txt: 'Please enter subject and message', type: 'error'})
+            }
             emailService.addEmail(this.email)
                 .then(res => {
                     showMsg({txt: 'Message Sent', type: 'success'})
