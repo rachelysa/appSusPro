@@ -3,6 +3,7 @@ import noteList from '../cmps/notes-list.js';
 import addNote from '../cmps/add-note.js';
 import noteFilter from '../cmps/notes-filter.js'
 import { notesService } from '../services/notes-service.js';
+import { showMsg } from '../../../services/event-bus-service.js';
 export default {
     template: `
         <section class="note-app">
@@ -59,11 +60,15 @@ export default {
         },
         deleteNote(noteId) {
             notesService.removeNote(noteId).then(res => {
+                showMsg({txt: 'note deleted', type: 'success'})
                 this.loadnotes()
+            }).catch(err=>{
+                showMsg({txt: 'err in note deleted', type: 'error'})
             })
         },
         editNote(note) {
             notesService.update(note).then(res => {
+                
                 this.loadnotes()
             })
         }
@@ -71,6 +76,7 @@ export default {
 
 
     },
+   
     computed: {
         pinned() {
             return this.filterByPinned(true);

@@ -4,6 +4,8 @@ import todosNote from "./dinamic cmps/todos-note.js";
 import videoNote from "./dinamic cmps/video-note.js";
 import audioNote from "./dinamic cmps/audio-note.js";
 import { notesService } from "../services/notes-service.js";
+import { showMsg } from '../../../services/event-bus-service.js';
+
 export default {
     props: ['currNote'],
     template: `
@@ -23,9 +25,12 @@ export default {
        <!-- -->
             </component> 
             <div  class="note-container">
-                 <button class="btn-note-type type-icon-preview" ><i :class="typeIcon"></i></button>
+                 <button class="  type-icon-preview" ><i :class="typeIcon"></i></button>
                 <div class="action-note-container" v-if="isHover">
-           
+                <button class="btn-note-type" >
+                  <router-link :to="{ path: '/mail/compose', query: { subject: currNote.info.title, body: currNote.info.txt }}">
+                        <i class="far fa-envelope" title="Save as Note"></i>
+                    </router-link></button>
              <button class="btn-note-type" @click="deleteNote()"><i class="far fa-trash-alt"></i></button>
              <button class="btn-note-type" @click="changePin" :class="isPinned"><i class="fas fa-thumbtack" ></i></button> 
             
@@ -58,10 +63,14 @@ export default {
         },
         update(Note) {
             notesService.update(Note).then(res => {
+                showMsg({txt: 'note update', type: 'success'})
                 this.currNote = res;
                 this.isEdit = false
+            }).catch(err=>{
+                showMsg({txt: 'err in note update', type: 'error'})
             })
         },
+     
         editNode(isTrue) {
             this.isEdit = !isTrue
         },
