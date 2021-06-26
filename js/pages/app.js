@@ -2,21 +2,24 @@ import appHeader from "../cmps/app-header.js"
 export default {
   template: `
         <section class="home-main">
+          <h2><span class="connect">Connect.</span><span class="collaborate">Collaborate.</span><span class="create">Create.</span></h2>
            <img class="home-responsive" src="./img/responsive.png"/>
+           <!-- <h2><span class="connect">Connect. </span><span class="connect">Collaborate. <span></span class="connect">Create. </span></h2> -->
+         
            <div class="go-to">
            <div class="try-home"> 
            
              <div class="go-to-home email">
                  <div class="go-to-icon"><i class="fas fa-envelope"></i></div>
-                 <h3>email</h3>
-                 <p>use email to send and get messeges</p>
-                  <button @click="goTo('/mail/inbox')">go to email</button>
+                 <h3>Email</h3>
+                 <p>Use email to send and get messages</p>
+                  <button @click="goTo('/mail/inbox')">Go to email</button>
                 </div>
              <div class="go-to-home notes">
                  <div  class="go-to-icon"><i class="fas fa-sticky-note"></i></div>
-                 <h3>notes</h3>
-                 <p>use notes to save all the stuff you want</p>
-                  <button @click="goTo('/note')" >go to notes</button>
+                 <h3>Notes</h3>
+                 <p>Use notes to save all the stuff you want</p>
+                  <button @click="goTo('/note')" >Go to notes</button>
                 </div>
 </div>
          </div>

@@ -14,6 +14,23 @@ body{
     background-color: #d8d8d8;
     height:90vh;
 }
+.home-main h2{
+    position: absolute;
+    font-size: 2rem;
+    right: 20px;
+  
+   
+}
+.home-main h2 .connect{
+    color: #9b9999;
+   
+}
+.home-main h2 .collaborate{
+    color: #6d6e71;
+}
+.home-main h2 .create{
+    color: #782057;
+}
 .home-responsive{
     width: 100%;
     height: 60vh;
