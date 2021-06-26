@@ -1,9 +1,9 @@
 @import './mail/email-app.css';
 @import './notes/notes.css';
-@import './notes/cmps/app-header.css';
+@import './app-header.css';
 @import 'user-msg.css';
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200&family=PT+Sans:ital@1&display=swap');
-
+@import './app-footer.css';
 body{
     /* font-family: 'Oswald', sans-serif; */
     font-family: 'PT Sans', sans-serif;
@@ -13,6 +13,23 @@ body{
     position: relative;
     background-color: #d8d8d8;
     height:90vh;
+}
+.home-main h2{
+    position: absolute;
+    font-size: 2rem;
+    right: 20px;
+  
+   
+}
+.home-main h2 .connect{
+    color: #9b9999;
+   
+}
+.home-main h2 .collaborate{
+    color: #6d6e71;
+}
+.home-main h2 .create{
+    color: #782057;
 }
 .home-responsive{
     width: 100%;

@@ -7,7 +7,7 @@
     z-index: 999;
     display: flex;
 }
-.logo{
+.app-header .logo{
     height: 80px;
     margin-inline-start: 40px;
 margin-top: 15px;
@@ -41,7 +41,7 @@ margin-top: 15px;
        transform: translateX(20%);
        padding-bottom: 10px;
     }
-    .logo{
+    .app-header.logo{
         padding: 0;
         margin-top: 5px;
         height: 70%;
