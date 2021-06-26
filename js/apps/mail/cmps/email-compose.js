@@ -40,6 +40,7 @@ export default {
             if (!this.email.subject || !this.email.body) {
                 return showMsg({txt: 'Please enter subject and message', type: 'error'})
             }
+            this.email.to = this.email.from = 'me';
             emailService.addEmail(this.email)
                 .then(res => {
                     showMsg({txt: 'Message Sent', type: 'success'})

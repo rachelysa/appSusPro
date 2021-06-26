@@ -33,6 +33,14 @@ const routes = [
             {
                 path: '/mail/starred/:emailId',
                 component: emailDetails
+            },
+            {
+                path: '/mail/sent',
+                component: emailList
+            },
+            {
+                path: '/mail/sent/:emailId',
+                component: emailDetails
             }
         ]
     },
