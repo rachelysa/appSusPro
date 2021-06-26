@@ -37,7 +37,7 @@ export default {
             if(this.todos.info.txt[idx].doneAt) this.todos.info.txt[idx].doneAt=null
           else  this.todos.info.txt[idx].doneAt=Date.now();
             notesService.saveTodos(this.todos).then(updateTodos=>{
-                this.todos=updateTodos;
+                this.$emit('update',this.todos)
             })
         },
         addTodo(){

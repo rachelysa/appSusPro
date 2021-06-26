@@ -1,6 +1,6 @@
 @import './dinamic-cmps/todos-note.css';
 .note-preview{
-    width: 300px;
+    width: 271px;
     /* min-height: 200px; */
     padding: 20px;
     border-radius: 20px;
@@ -73,8 +73,8 @@ padding: 5px;
 
 .color-palete{
     position: absolute;
-    right: 0px;
-    top: 4px;
+    right: -1px;
+    top: 0px;
     font-size: 1.2rem;
     cursor: pointer;
 }
