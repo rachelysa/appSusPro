@@ -1,6 +1,7 @@
 import appHeader from "./cmps/app-header.js"
 import { router } from './routes.js';
 import userMsg from './cmps/user-msg.js';
+import appFotter from './cmps/app-fotter.js'
 
 const options = {
     el: '#app',
@@ -10,11 +11,13 @@ const options = {
             <user-msg />
             <app-header />
             <router-view />
+            <app-fotter />
         </section>
     `,
     components: {
         appHeader,
-        userMsg
+        userMsg,
+        appFotter
     }
 };
 
