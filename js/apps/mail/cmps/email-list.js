@@ -9,7 +9,12 @@ export default {
         <email-filter @filtered="setFilter" @sorted="setSort" />
         <ul class="email-list" v-if="emailsToShow">
             <li v-for="email in emailsToShow" :key="email.id">
-                <email-preview :email="email" @deleteEmail="deleteEmail(email.id)" @click.native="read(email)" @toggleRead="updateEmail(email)" @toggleStar="updateEmail(email)"></email-preview>
+                <email-preview :email="email" 
+                    @deleteEmail="deleteEmail(email.id)" 
+                    @click.native="read(email)" 
+                    @toggleRead="toggleRead(email)" 
+                    @toggleStar="toggleStar(email)">
+                </email-preview>
             </li>
         </ul>
         <p class="no-results" v-else>No emails found</p>
@@ -53,6 +58,7 @@ export default {
                 })
         },
         getInboxEmails() {
+            this.category = 'inbox';
             emailService.query()
                 .then(emails => {
                     this.emails = emails.filter(email => email.to === 'me')
@@ -60,6 +66,7 @@ export default {
                 })
         },
         getStarredEmails() {
+            this.category = 'starred';
             emailService.query()
                 .then(emails => {
                     this.emails = emails.filter(email => email.isStarred)
@@ -67,6 +74,7 @@ export default {
                 })
         },
         getSentEmails() {
+            this.category = 'sent';
             emailService.query()
                 .then(emails => {
                     this.emails = emails.filter(email => email.from === 'me')
@@ -84,10 +92,14 @@ export default {
                     showMsg({ txt: 'Error, please try again', type: 'error' })
                 })
         },
-        updateEmail(email) {
-            console.log(email)
+        toggleRead(email) {
             emailService.updateEmail(email);
-
+        },
+        toggleStar(email) {
+            emailService.updateEmail(email)
+                .then(res => {
+                    if (this.category === 'starred') this.getStarredEmails();
+                })
         },
         read(email) {
             email.isRead = true;

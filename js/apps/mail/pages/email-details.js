@@ -12,7 +12,7 @@ export default {
                     <span>{{sentTimeDisplay}}</span>
                     <i class="fas fa-star" v-if="email.isStarred" @click="toggleStar"></i>
                     <i class="far fa-star" v-else @click="toggleStar"></i>
-                    <i class="fas fa-reply" title="Reply"></i>
+                    <i class="fas fa-reply" title="Reply" @click="reply"></i>
                     <i class="far fa-trash-alt" @click="deleteEmail" title="Delete"></i>
                     <router-link :to="{ path: '/note', query: { title: email.subject, txt: email.body }}">
                         <i class="far fa-sticky-note" title="Save as Note"></i>
@@ -66,5 +66,16 @@ export default {
                     showMsg({ txt: 'Error, please try again', type: 'error' })
                 })
         },
+        reply(){
+            this.$router.push({ 
+                path: '/mail/compose', 
+                query: { 
+                    to: this.email.from, 
+                    from: this.email.to, 
+                    subject: 'Re: '+this.email.subject, 
+                    body: '\n\nOn ' + this.sentTimeDisplay + ' ' + this.email.from + ' wrote:\n\n' + this.email.body
+                }
+            })
+        }
     }
 }

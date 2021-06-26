@@ -61,6 +61,10 @@ export default {
                 const params = this.$route.query;
                 this.email.subject = params.subject;
                 this.email.body = params.body;
+                if (params.to) {
+                    this.email.to = params.to;
+                    this.email.from = params.from;
+                }
                 // this.sendEmail();
             }
         }
