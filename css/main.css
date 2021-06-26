@@ -11,7 +11,7 @@ body{
 .home-main{
      top: 100px;
     position: relative;
-    background-color: #cacaca;
+    background-color: #d8d8d8;
     height:90vh;
 }
 .home-responsive{
@@ -63,6 +63,10 @@ body{
     border: none;
     border-radius: 10px;
     margin-top: 15px;
+    transition: 1s;
+}
+.go-to-home button:hover{
+    background-color: #8d8d8d;
 }
 .go-to-icon
 {
