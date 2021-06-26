@@ -17,7 +17,7 @@ export default {
             <router-link to="/mail/sent" active-class="active-link">
                 <i class="fas fa-share-square"></i> Sent
             </router-link> 
-            <!-- <li><email-status v-if="status" :status="status" /></li>s -->
+            <email-status v-if="status" :status="status" />
         </nav>
       <div class="main-content">
           <router-view @status="updateStatus" @unreadAmount="updateUnread"></router-view>
@@ -25,13 +25,12 @@ export default {
   </section>`,
     data() {
         return {
-            status: null,
+            status: { total: 5, read: 2},
             unread: null
         }
     },
     methods: {
         updateStatus(status) {
-            console.log(status)
             this.status = { ...status }
         },
         updateUnread(amount) {

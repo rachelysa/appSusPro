@@ -2,6 +2,7 @@
 @import './cmps/email-list.css';
 @import './cmps/email-preview.css';
 @import './cmps/email-filter.css';
+@import './cmps/email-status.css';
 @import './pages/email-details.css';
 
 * {
@@ -68,9 +69,4 @@ body {
 
 .email-app .main-content {
     flex: 1;
-}
-
-/* EMAIL-STATUS */
-.email-status {
-    padding: 30px
 }

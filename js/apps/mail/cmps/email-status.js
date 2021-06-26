@@ -2,18 +2,19 @@ export default {
     props: ['status'],
     template: `
     <section class="email-status">
-        {{readPercent}}
-        <!-- ---Status-here--- -->
-
+        <div class="read" :style="percentageToDisplay">
+            {{this.percentage}}
+        </div>
     </section>`,
-    computed: {
-        readPercent(){
-            // console.log(this.emails)
-            // const total = this.emails.length;
-            // const read = this.emails.filter(email => !email.isRead).length;
-            console.log(this.status.read/this.status.total)
-            return this.status.read/this.status.total
+    data(){
+        return {
+            percentage: null
         }
-
+    },
+    computed: {
+        percentageToDisplay(){
+            this.percentage = (Math.floor(this.status.read/this.status.total * 100))+ '%';
+            return { width: this.percentage}
+        }
     }
 }
