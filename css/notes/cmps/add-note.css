@@ -7,7 +7,7 @@ background-color: white;
     display: flex;
     justify-content: space-between;
     position: relative;
-
+    flex-direction: row;
   align-items: center;
   gap:5px;
   top:20px;
@@ -25,5 +25,12 @@ background-color: white;
   gap:5px;
 }
 @media (max-width:770px) {
-    .add-note-input{flex-basis: 50%;};
+    .add-note{
+        flex-direction: column;
+        height: 83px;
+    }
+        .add-note-input{
+            width: 100%;
+            flex-basis: 100%;
+        }
 }

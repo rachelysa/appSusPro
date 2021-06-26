@@ -1,12 +1,12 @@
 import { eventBus } from '../services/event-bus-service.js';
 
 export default {
-    template: `
+    template: `<transition  name="user-msg-transition" >
         <div v-if="msg" class="user-msg" :class="msg.type">
-            <button class="close-btn" @click="close">X</button>
+
             <p class="type">{{msg.type}}</p>
             <p>{{msg.txt}}</p>
-        </div>`,
+        </div></transition>`,
     data() {
         return {
             msg: null
@@ -23,7 +23,7 @@ export default {
             this.msg = msg;
             this.timeoutId = setTimeout(() => {
                 this.msg = null;
-            }, 3000);
+            }, 2000);
         },
         close(){
             this.msg = null;

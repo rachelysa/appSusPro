@@ -1,5 +1,5 @@
 import { notesService } from "../services/notes-service.js";
-
+import { showMsg } from '../../../services/event-bus-service.js';
 export default {
   template: `
         <section class="add-note"> 
@@ -53,7 +53,7 @@ export default {
         isPinned: false,
         type: this.type,
         info: {
-          title: 'new note',
+          title: this.title==='enter txt'?'new note':this.title,
           txt: this.txt
         },
         style: {
@@ -61,10 +61,10 @@ export default {
         }
       }
     },
-    createTodos(txt){
-      var todos=txt.split(',');
-      var list=todos.map(todo=>{
-        return{ todo,doneAt:null}
+    createTodos(txt) {
+      var todos = txt.split(',');
+      var list = todos.map(todo => {
+        return { todo, doneAt: null }
       })
       console.log(list);
       return list;
@@ -86,6 +86,10 @@ export default {
     },
 
     saveNote() {
+      if(!this.txt) {
+        showMsg({txt: 'cant add an empty note', type: 'error'});
+        return
+      }
       var note = (this.type === 'todosNote') ? this.createTodosNote() : this.createNote()
       if (this.type === 'videoNote') {
         if (note.info.txt.includes('youtube')) {
@@ -95,10 +99,25 @@ export default {
       notesService.save(note).then(res => {
         this.txt = '';
         this.styleObject.backgroundColor = '#fff'
+        showMsg({ txt: 'note added', type: 'success' });
         this.$emit('saveNote', true)
-      })
+      }).catch(err=>{
+        showMsg({txt: 'err in note added', type: 'error'})
+    })
     }
   },
+  watch: {
+    '$route': {
+        immediate: true,
+        handler() {
+            const params = this.$route.query;
+            if(!params.title) return
+            this.title = params.title;
+            this.txt = params.txt;
+            this.saveNote()
+        }
+    }
+},
   computed: {
     // backColor() {
     //   return 'background-color:' + this.backColor
