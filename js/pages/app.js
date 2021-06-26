@@ -1,4 +1,5 @@
 import appHeader from "../cmps/app-header.js"
+import appFotter from '../cmps/app-fotter.js'
 export default {
   template: `
         <section class="home-main">
@@ -23,7 +24,7 @@ export default {
                 </div>
 </div>
          </div>
-         
+         <app-fotter />
         </section>
     `,
   methods: {
@@ -32,6 +33,7 @@ export default {
     }
   },
   components: {
-    appHeader
+    appHeader,
+        appFotter
   }
 }
