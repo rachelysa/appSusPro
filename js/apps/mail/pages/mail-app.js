@@ -2,7 +2,7 @@ import { emailService } from '../services/email-service.js';
 import emailStatus from '../cmps/email-status.js';
 
 export default {
-  template: `
+    template: `
   <section class="email-app app-main">
         <nav> 
             <router-link to="/mail/compose" class="nav">
@@ -14,17 +14,28 @@ export default {
             <router-link to="/mail/starred" active-class="active-link">
                 <i class="fas fa-star"></i> Starred
             </router-link> 
-            <router-link to="#" active-class="active-link">
-                <i class="fas fa-share-square"></i> Sent Email
+            <router-link to="/mail/sent" active-class="active-link">
+                <i class="fas fa-share-square"></i> Sent
             </router-link> 
-            <router-link to="#" active-class="active-link"> Drafts</router-link>
-            <!-- <li><email-status :emails="emailsToStatus" /></li>s -->
+            <!-- <router-link to="#" active-class="active-link"> Drafts</router-link> -->
+            <!-- <li><email-status v-if="status" :status="status" /></li>s -->
         </nav>
       <div class="main-content">
-          <router-view></router-view>
+          <router-view @status="updateStatus"></router-view>
       </div>
   </section>`,
-  components: {
-    emailStatus,
-  }
+    data() {
+        return {
+            status: null
+        }
+    },
+    methods: {
+        updateStatus(status) {
+            console.log(status)
+            this.status = {...status}
+        }
+    },
+    components: {
+        emailStatus,
+    },
 }

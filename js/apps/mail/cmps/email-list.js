@@ -6,10 +6,10 @@ import { showMsg } from '../../../services/event-bus-service.js';
 export default {
     template: `
     <div class="list-container">
-        <email-filter class="email-filter" @filtered="setFilter" @sorted="setSort" />
+        <email-filter @filtered="setFilter" @sorted="setSort" />
         <ul class="email-list" v-if="emailsToShow">
             <li v-for="email in emailsToShow" :key="email.id">
-                <email-preview :email="email" @deleteEmail="deleteEmail(email.id)" @click.native="read(email)" @toggleRead="toggleRead(email)"></email-preview>
+                <email-preview :email="email" @deleteEmail="deleteEmail(email.id)" @click.native="read(email)" @toggleRead="updateEmail(email)" @toggleStar="updateEmail(email)"></email-preview>
             </li>
         </ul>
         <p class="no-results" v-else>No emails found</p>
@@ -18,6 +18,7 @@ export default {
     data() {
         return {
             emails: null,
+            category: null,
             filterBy: null,
             sortBy: { key: 'date', isAsc: false },
             unreadEmails: null,
@@ -51,12 +52,25 @@ export default {
                     // this.updateAmount();
                 })
         },
+        getInboxEmails() {
+            emailService.query()
+                .then(emails => {
+                    this.emails = emails.filter(email => email.to === 'me')
+                    this.emails.sort((a, b) => b.sentAt - a.sentAt)
+                })
+        },
         getStarredEmails() {
             emailService.query()
                 .then(emails => {
                     this.emails = emails.filter(email => email.isStarred)
                     this.emails.sort((a, b) => b.sentAt - a.sentAt)
-                    // this.updateAmount();
+                })
+        },
+        getSentEmails() {
+            emailService.query()
+                .then(emails => {
+                    this.emails = emails.filter(email => email.from === 'me')
+                    this.emails.sort((a, b) => b.sentAt - a.sentAt)
                 })
         },
         deleteEmail(emailId) {
@@ -70,13 +84,12 @@ export default {
                     showMsg({ txt: 'Error, please try again', type: 'error' })
                 })
         },
-        toggleRead(email) {
+        updateEmail(email) {
             console.log(email)
             emailService.updateEmail(email);
 
         },
         read(email) {
-            console.log(email)
             email.isRead = true;
             this.selectedEmail = email;
             console.log(this.$route)
@@ -98,15 +111,15 @@ export default {
         updateAmount() {
             let readAmount = 0;
             let unreadAmount = 0;
-            this.emails.forEach(email =>{
+            this.emails.forEach(email => {
                 if (email.read) readAmount++
                 else unreadAmount++
             })
             this.unreadEmails = unreadAmount;
             this.readEmails = readAmount;
             const total = this.emails.length;
-            console.log(this.readEmails/total)
-            this.$emit('status', {read: this.readEmails, total})
+            console.log(this.readEmails / total)
+            this.$emit('status', { read: this.readEmails, total })
         },
         sortBySubject(isAsc) {
             this.emails.sort((a, b) => {
@@ -122,7 +135,6 @@ export default {
             this.emails.sort((a, b) => {
                 var emailA = a.sentAt;
                 var emailB = b.sentAt;
-                console.log(emailA, emailB)
                 return emailA - emailB
             })
             if (!isAsc) this.emails.reverse();
@@ -133,11 +145,10 @@ export default {
         '$route': {
             immediate: true,
             handler() {
-                //update filter and getEmails 
-                const path = this.$route.path.substring(6)
-                if (path.startsWith('inbox')) this.getAllEmails();
+                const path = this.$route.path.substring(6);
+                if (path.startsWith('inbox')) this.getInboxEmails();
                 else if (path.startsWith('starred')) this.getStarredEmails();
-                
+                else if (path.startsWith('sent')) this.getSentEmails();
             }
         }
     },

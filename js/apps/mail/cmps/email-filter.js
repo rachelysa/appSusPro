@@ -1,7 +1,8 @@
 export default {
     template: `
     <section class="email-filter">
-        <input v-model="filterBy.text" type="search" placeholder="Search mail" @input="filter" />  
+        <!-- <i class="fas fa-search"></i> -->
+        <input v-model="filterBy.text" type="search" placeholder="Search mail" @input="filter" />
         <select v-model="filterBy.isRead" name="read" @change="filter">
             <option value="all">All</option>
             <option value="read">Read</option>

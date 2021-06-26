@@ -5,6 +5,7 @@ export default {
     <article class="email-preview" :class="read"></>
         <i class="fas fa-star" v-if="email.isStarred" @click.stop="toggleStar"></i>
         <i class="far fa-star" v-else @click.stop="toggleStar"></i>
+        <p class="email-from">{{email.from}}</p>
         <p class="email-subjet">{{email.subject}}</p>
         <!-- <p class="email-body">{{email.body}}</p> -->
         <!-- <p class="email-read">read: {{email.isRead}}</p> -->
@@ -49,7 +50,7 @@ export default {
         },
         toggleStar(){
             this.email.isStarred = !this.email.isStarred;
-            this.$emit("toggleRead", this.email.id)
+            this.$emit("toggleStar", this.email)
         }
     }
 }
