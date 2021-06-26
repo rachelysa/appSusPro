@@ -19,7 +19,8 @@ export default {
     data() {
         return {
             notes: [],
-             filterednotes:[]
+             filterednotes:[],
+             filterBy:'',
         };
     },
     created() {
@@ -30,7 +31,7 @@ export default {
         loadnotes() {
             notesService.query().then(notes => {
                 this.notes = notes;
-                this.filterednotes=this.notes;
+                this.filterednotes=this.filterBy?this.filternotes(this.filterBy):this.notes;
             })
         },
         filterByPinned(isPinned) {
@@ -40,14 +41,17 @@ export default {
             
         },
         filternotes(txt){
+            this.filterBy=txt;
             txt=txt.toLowerCase();
             var filterednotes= this.notes.filter(note=>{
                 if(note.type==='todosNote'){
-                    if(note.info.title.toLowerCase().includes(txt)) return note.info.title.toLowerCase().includes(txt);
-                   else return note.info.txt.filter(todo=>{
+                    
+                    
+                   var todos= note.info.txt.filter(todo=>{
                         return todo.todo.toLowerCase().includes(txt);
                     })
-                    
+                    if(note.info.title.toLowerCase().includes(txt)) todos.push( note.info.title.toLowerCase().includes(txt));
+                    return todos.length?todos:''
                 }
                 else return note.info.title.toLowerCase().includes(txt) ||note.info.txt.toLowerCase().includes(txt)
             });
@@ -68,8 +72,7 @@ export default {
         },
         editNote(note) {
             notesService.update(note).then(res => {
-                
-                this.loadnotes()
+            
             })
         }
 
