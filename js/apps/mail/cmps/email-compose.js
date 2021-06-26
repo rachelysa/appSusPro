@@ -10,12 +10,10 @@ export default {
         <div class="email-content">
             <form @submit.prevent="sendEmail">
                 <div class="subject-container">
-                    <!-- <label for="subject"></label> -->
                     <input type="text" id="subject" v-model="email.subject" autocomplete="off" placeholder="Subject" />
                 </div>
                 <div class="body-container">
-                    <!-- <label for="body"></label> -->
-                    <textarea name="" id="body" rows="15" v-model="email.body" placeholder="Enter message here..."></textarea>
+                    <textarea name="" id="body" rows="13" v-model="email.body" placeholder="Enter message here..."></textarea>
                 </div>
                 <div class="email-footer">
                     <button class="send-btn">Send</button>
@@ -32,9 +30,6 @@ export default {
             }
         }
     },
-    // created() {
-    //     console.log(this.$route)
-    // },
     methods: {
         sendEmail(email) {
             if (!this.email.subject || !this.email.body) {
@@ -65,7 +60,6 @@ export default {
                     this.email.to = params.to;
                     this.email.from = params.from;
                 }
-                // this.sendEmail();
             }
         }
     },

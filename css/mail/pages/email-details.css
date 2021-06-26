@@ -49,3 +49,14 @@
 .email-details .fas.fa-star {
     color: #ffc760;
 }
+
+@media (max-width: 480px) {
+    .email-details .actions {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .email-details .actions span{
+        grid-column-start: 4 span;
+        margin-bottom: 8px;
+      }
+}
